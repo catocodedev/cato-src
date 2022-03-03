@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "cato-cli": "echo err",
+    "compile": "nexts compile",
+    "compile:watch": "nexts compile --watch"
+  },
+  "author": "EmeraldMike, XFaonAE",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/catocodedev/cato-src/issues"
+  },
+  "homepage": "https://github.com/catocodedev/cato-src#readme",
+  "dependencies": {
+    "@nexts-stack/cli-service": "^1.0.0-dev.2",
+    "typescript": "^4.6.2"
+  }
+}
