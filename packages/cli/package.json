@@ -1,0 +1,11 @@
+{
+	"name": "@cato-script/cli",
+	"version": "1.0.0-dev.1",
+	"author": "EmeraldMike, XFaonAE",
+	"main": "./src/index.ts",
+	"exports": {
+		"require": "./../../build/cli/dist.commonjs.cjs",
+		"import": "./../../build/cli/dist.esm.mjs"
+	},
+	"types": "./../../build/cli/types/src/index.d.ts"
+}
