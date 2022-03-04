@@ -1,5 +1,30 @@
 import Lexer from "@cato-script/lexer";
-import {Token, TokenTypes} from "@cato-script/lexer/src";
+
+export interface Token {
+	type: TokenTypes;
+	value: string;
+	line: number;
+	column: number;
+	start: number;
+	end: number;
+}
+
+export enum TokenTypes {
+	IF = "^if",
+	ELSE = "^else",
+	L_PAREN = "^\\(",
+	R_PAREN = "^\\)",
+	L_BRACE = "^\\{",
+	R_BRACE = "^\\}",
+	L_BRACKET = "^\\[",
+	R_BRACKET = "^\\]",
+	MEOW = "^meow",
+	STRING = "^(?<!\\\\)(?:\\\\\\\\)*\"",
+	NUMBER = "^[0-9]+",
+	EQUALS_COMPARE = "^==",
+	SPACE = "^\\s+",
+	PLAIN_TEXT = "^[^\\s]+",
+}
 
 export default class Tokenizer {
 	readonly #tokens: Token[];

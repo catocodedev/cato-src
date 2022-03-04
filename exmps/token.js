@@ -8,3 +8,4 @@ const lexer = new Lexer([
 ].join('\n'));
 
 const tokenizer = new Tokenizer(lexer);
+console.log(tokenizer.tokens)

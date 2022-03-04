@@ -1,7 +1,7 @@
 {
   "scripts": {
     "cato-cli": "echo err",
-    "compile": "nexts compile",
+  "compile": "nexts compile",
     "compile:watch": "nexts compile --watch"
   },
   "workspaces": [
