@@ -3,9 +3,7 @@ import Lexer from "@cato-script/lexer";
 import Parser from '@cato-script/parser';
 
 const lexer = new Lexer([
-    'if (5 == 5) {',
-    '    meow "If statement is true"; // Uwu',
-    '} // g',
+    'if // Com', // 13 CH
 ].join('\n'));
 
 const tokenizer = new Tokenizer(lexer);

@@ -9,24 +9,23 @@ export default class Parser {
     public constructor(tokenizer: Tokenizer) {
         const comment = {
             open: false,
-            startLine: 0,
-            endLine: 0,
-            startColumn: 0,
-            endColumn: 0,
+            start: 0,
+            end: 0
         }
 
-        tokenizer.tokens.forEach((token) => {
+        tokenizer.tokens.forEach((token, index) => {
+            tokenizer.lexer.jumpTo(index);
+
             if (!this.#inString) {
                 if (!comment.open && token.type === TokenTypes.COMMENT) {
-                    comment.open = true;
-                    comment.startLine = token.line;
-                    comment.endLine = token.line;
-                    comment.startColumn = token.column;
-                    comment.endColumn = token.column + token.value.length;
+                    const tokensBefore = tokenizer.tokens.filter(t => t.start < token.start);
+                    console.log(tokensBefore)
 
                     this.#comments.push('');
-                } else if (comment.open && comment.startLine === token.line && token.column >= comment.startColumn && token.column <= comment.endColumn && token.line <= comment.endLine) {
+                } else if (comment.open && comment.startLine === token.line && token.start >= comment.startColumn) {
                     this.#comments[this.#comments.length - 1] += token.value;
+                } else if (comment.open && token.line > comment.endLine) {
+                    comment.open = false;
                 }
             }
         });

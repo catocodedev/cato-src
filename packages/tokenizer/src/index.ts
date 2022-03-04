@@ -11,7 +11,7 @@ export interface Token {
 
 export enum TokenTypes {
 	NEW_LINE = "^\n",
-	COMMENT = "^//.*",
+	COMMENT = "^//",
 	L_PAREN = "^\\(",
 	R_PAREN = "^\\)",
 	L_BRACE = "^\\{",
@@ -30,8 +30,10 @@ export enum TokenTypes {
 
 export default class Tokenizer {
 	readonly #tokens: Token[];
+	readonly lexer;
 
 	public constructor(lexer: Lexer) {
+		this.lexer = lexer;
 		this.#tokens = [];
 		const tokenTypes = Object.keys(TokenTypes);
 		let tokenSource = lexer.source;
@@ -50,8 +52,8 @@ export default class Tokenizer {
 						value: match[0],
 						start: index,
 						end: index + match[0].length,
-						line: lexer.peek(0).line,
-						column: lexer.peek(0).column,
+						line: lexer.chars[index].line,
+						column: lexer.chars[index].column,
 					};
 
 					index += match[0].length;
