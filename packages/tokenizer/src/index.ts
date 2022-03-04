@@ -10,14 +10,16 @@ export interface Token {
 }
 
 export enum TokenTypes {
-	IF = "^if",
-	ELSE = "^else",
+	NEW_LINE = "^\n",
+	COMMENT = "^//.*",
 	L_PAREN = "^\\(",
 	R_PAREN = "^\\)",
 	L_BRACE = "^\\{",
 	R_BRACE = "^\\}",
 	L_BRACKET = "^\\[",
 	R_BRACKET = "^\\]",
+	IF = "^if",
+	ELSE = "^else",
 	MEOW = "^meow",
 	STRING = "^(?<!\\\\)(?:\\\\\\\\)*\"",
 	NUMBER = "^[0-9]+",
@@ -32,7 +34,7 @@ export default class Tokenizer {
 	public constructor(lexer: Lexer) {
 		this.#tokens = [];
 		const tokenTypes = Object.keys(TokenTypes);
-		let tokenSource = lexer.source.replace(/\n/g, '');
+		let tokenSource = lexer.source;
 		let index = 0;
 
 		const run = () => {

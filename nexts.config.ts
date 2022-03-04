@@ -29,6 +29,12 @@ export default {
 			dependencies: {
 				'@cato-script/lexer': '*'
 			},
+		},
+		{
+			name: 'parser',
+			org: 'cato-script',
+			path: './packages/parser',
+			main: './src/index.ts',
 		}
 	]
 }

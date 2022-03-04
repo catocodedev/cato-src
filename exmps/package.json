@@ -2,6 +2,7 @@
   "type": "module",
   "dependencies": {
     "@cato-script/lexer": "file:../packages/lexer",
+    "@cato-script/parser": "file:../packages/parser",
     "@cato-script/tokenizer": "file:../packages/tokenizer"
   }
 }

@@ -1,11 +1,12 @@
 import Tokenizer from "@cato-script/tokenizer";
 import Lexer from "@cato-script/lexer";
+import Parser from '@cato-script/parser';
 
 const lexer = new Lexer([
     'if (5 == 5) {',
-    '    meow "If statement is true";',
-    '}'
+    '    meow "If statement is true"; // Uwu',
+    '} // g',
 ].join('\n'));
 
 const tokenizer = new Tokenizer(lexer);
-console.log(tokenizer.tokens)
+const parser = new Parser(tokenizer);

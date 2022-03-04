@@ -7,20 +7,20 @@ export interface LexerChar {
 
 export default class Lexer {
 	readonly #source: string;
-	readonly #positionals: LexerChar[];
+	readonly #positional: LexerChar[];
 	readonly #chunks: string[];
 	#index = 0;
 
 	public constructor(source: string) {
-		this.#source = source;
+		this.#source = source.replace(/\r\n/g, "\n");
 		this.#chunks = source.split(' ');
-		this.#positionals = [];
+		this.#positional = [];
 
 		let currentIndex = 0;
 
-		source.split('\n').forEach((lineString, lineNumber) => {
+		this.#source.split('\n').forEach((lineString, lineNumber) => {
 			lineString.split('').forEach((charString, charIndex) => {
-				this.#positionals.push({
+				this.#positional.push({
 					char: charString,
 					index: currentIndex,
 					line: lineNumber + 1,
@@ -33,15 +33,15 @@ export default class Lexer {
 	}
 
 	public peek(offset: number = 1) {
-		return this.#positionals[this.#index + offset];
+		return this.#positional[this.#index + offset];
 	}
 
 	public get next() {
-		return this.#positionals[this.#index + 1];
+		return this.#positional[this.#index + 1];
 	}
 
 	public get prev() {
-		return this.#positionals[this.#index + 1];
+		return this.#positional[this.#index + 1];
 	}
 
 	public jumpNext(offset: number = 1) {
@@ -57,7 +57,7 @@ export default class Lexer {
 	}
 
 	public get count() {
-		return this.#positionals.length;
+		return this.#positional.length;
 	}
 
 	public get chunks() {
@@ -69,6 +69,6 @@ export default class Lexer {
 	}
 
 	public get chars() {
-		return [ ...this.#positionals ];
+		return [ ...this.#positional ];
 	}
 }
