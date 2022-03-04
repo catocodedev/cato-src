@@ -3,4 +3,5 @@ node_modules/
 
 # NEXTS
 .nexts/
-build/
+packages/*/build/
+packages/*/package.json

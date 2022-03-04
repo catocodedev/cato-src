@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@cato-script/lexer": "file:../packages/lexer"
+  }
+}
