@@ -13,6 +13,10 @@ export enum TokenTypes {
 export interface Token {
 	type: TokenTypes;
 	value: string;
+	line: number;
+	column: number;
+	start: number;
+	end: number;
 }
 
 export default class Tokenizer {
@@ -30,11 +34,15 @@ export default class Tokenizer {
 				const match = source.match(regex);
 
 				if (match && match[0]) {
+					lexer.jumpNext();
+
 					const token: Token = {
 						type: (TokenTypes as any)[tokenType],
 						value: match[0],
 						start: index,
 						end: index + match[0].length,
+						line: lexer.peek(0).line,
+						column: lexer.peek(0).column,
 					};
 
 					index += match[0].length;
