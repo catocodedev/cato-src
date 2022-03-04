@@ -34,9 +34,8 @@ export enum TokenTypes {
 export default class Lexer {
 	readonly #source: string;
 	readonly #positionals: LexerChar[];
-	#index = 0;
 	readonly #chunks: string[];
-	readonly #tokens: Token[];
+	#index = 0;
 
 	public constructor(source: string) {
 		this.#source = source;
@@ -57,45 +56,6 @@ export default class Lexer {
 				currentIndex++;
 			});
 		});
-
-		this.#tokens = [];
-		const tokenTypes = Object.keys(TokenTypes);
-		let tokenSource = this.source.replace(/\n/g, '');
-		let index = 0;
-
-		const run = () => {
-			for (const tokenType of tokenTypes) {
-				const regex = new RegExp((TokenTypes as any)[tokenType]);
-				const match = tokenSource.match(regex);
-
-				if (match && match[0]) {
-					this.jumpNext();
-
-					const token: Token = {
-						type: (TokenTypes as any)[tokenType],
-						value: match[0],
-						start: index,
-						end: index + match[0].length,
-						line: this.peek(0).line,
-						column: this.peek(0).column,
-					};
-
-					index += match[0].length;
-
-					this.#tokens.push(token);
-					tokenSource = tokenSource.replace(regex, "");
-
-					if (tokenSource.length !== 0) {
-						run();
-					}
-
-					break;
-				}
-			}
-		}
-
-		run();
-		this.jumpTo(0);
 	}
 
 	public peek(offset: number = 1) {
@@ -132,10 +92,6 @@ export default class Lexer {
 
 	public get source() {
 		return this.#source;
-	}
-
-	public get tokens() {
-		return [ ...this.#tokens ];
 	}
 
 	public get chars() {
