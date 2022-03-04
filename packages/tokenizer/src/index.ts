@@ -19,6 +19,8 @@ export interface Token {
 	end: number;
 }
 
+// TODO: This current functionality is actualy supposed to be in the Lexer class, the tokenizer should only generate a syntax tree
+
 export default class Tokenizer {
 	#tokens: Token[];
 
