@@ -5,11 +5,38 @@ export interface LexerChar {
 	column: number;
 }
 
+export interface Token {
+	type: TokenTypes;
+	value: string;
+	line: number;
+	column: number;
+	start: number;
+	end: number;
+}
+
+export enum TokenTypes {
+	IF = "^if",
+	ELSE = "^else",
+	L_PAREN = "^\\(",
+	R_PAREN = "^\\)",
+	L_BRACE = "^\\{",
+	R_BRACE = "^\\}",
+	L_BRACKET = "^\\[",
+	R_BRACKET = "^\\]",
+	MEOW = "^meow",
+	STRING = "^(?<!\\\\)(?:\\\\\\\\)*\"",
+	NUMBER = "^[0-9]+",
+	EQUALS_COMPARE = "^==",
+	SPACE = "^\\s+",
+	PLAIN_TEXT = "^[^\\s]+",
+}
+
 export default class Lexer {
-	#source: string;
-	#positionals: LexerChar[];
+	readonly #source: string;
+	readonly #positionals: LexerChar[];
 	#index = 0;
-	#chunks: string[];
+	readonly #chunks: string[];
+	readonly #tokens: Token[];
 
 	public constructor(source: string) {
 		this.#source = source;
@@ -30,6 +57,45 @@ export default class Lexer {
 				currentIndex++;
 			});
 		});
+
+		this.#tokens = [];
+		const tokenTypes = Object.keys(TokenTypes);
+		let tokenSource = this.source.replace(/\n/g, '');
+		let index = 0;
+
+		const run = () => {
+			for (const tokenType of tokenTypes) {
+				const regex = new RegExp((TokenTypes as any)[tokenType]);
+				const match = tokenSource.match(regex);
+
+				if (match && match[0]) {
+					this.jumpNext();
+
+					const token: Token = {
+						type: (TokenTypes as any)[tokenType],
+						value: match[0],
+						start: index,
+						end: index + match[0].length,
+						line: this.peek(0).line,
+						column: this.peek(0).column,
+					};
+
+					index += match[0].length;
+
+					this.#tokens.push(token);
+					tokenSource = tokenSource.replace(regex, "");
+
+					if (tokenSource.length !== 0) {
+						run();
+					}
+
+					break;
+				}
+			}
+		}
+
+		run();
+		this.jumpTo(0);
 	}
 
 	public peek(offset: number = 1) {
@@ -52,6 +118,10 @@ export default class Lexer {
 		this.#index -= offset;
 	}
 
+	public jumpTo(index: number) {
+		this.#index = index < 0 ? 0 : index;
+	}
+
 	public get count() {
 		return this.#positionals.length;
 	}
@@ -62,5 +132,13 @@ export default class Lexer {
 
 	public get source() {
 		return this.#source;
+	}
+
+	public get tokens() {
+		return [ ...this.#tokens ];
+	}
+
+	public get chars() {
+		return [ ...this.#positionals ];
 	}
 }

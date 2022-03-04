@@ -3,7 +3,7 @@ import Lexer from "@cato-script/lexer";
 
 const lexer = new Lexer([
     'if (5 == 5) {',
-    '    meow "If statement is true";' +
+    '    meow "If statement is true";',
     '}'
 ].join('\n'));
 
