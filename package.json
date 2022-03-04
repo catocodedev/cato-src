@@ -4,6 +4,9 @@
     "compile": "nexts compile",
     "compile:watch": "nexts compile --watch"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "author": "EmeraldMike, XFaonAE",
   "license": "MIT",
   "bugs": {

@@ -1,6 +1,7 @@
 {
   "type": "module",
   "dependencies": {
-    "@cato-script/lexer": "file:../packages/lexer"
+    "@cato-script/lexer": "file:../packages/lexer",
+    "@cato-script/tokenizer": "file:../packages/tokenizer"
   }
 }

@@ -5,6 +5,6 @@ const lexer = new Lexer(`5 + 5
 
 for (let i = 0; i < lexer.count; i++) {
   const token = lexer.peek(i);
-  console.log(token);
+  process.stdout.write(token.char);
 }
 

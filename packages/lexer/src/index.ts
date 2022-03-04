@@ -9,9 +9,11 @@ export default class Lexer {
 	#source: string;
 	#positionals: LexerChar[];
 	#index = 0;
+	#chunks: string[];
 
 	public constructor(source: string) {
 		this.#source = source;
+		this.#chunks = source.split(' ');
 		this.#positionals = [];
 
 		let currentIndex = 0;
@@ -28,8 +30,6 @@ export default class Lexer {
 				currentIndex++;
 			});
 		});
-
-		console.log(this.#positionals)
 	}
 
 	public peek(offset: number = 1) {
@@ -54,5 +54,13 @@ export default class Lexer {
 
 	public get count() {
 		return this.#positionals.length;
+	}
+
+	public get chunks() {
+		return [ ...this.#chunks ];
+	}
+
+	public get source() {
+		return this.#source;
 	}
 }

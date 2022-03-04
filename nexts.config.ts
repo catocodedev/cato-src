@@ -20,6 +20,15 @@ export default {
 			org: 'cato-script',
 			path: './packages/lexer',
 			main: './src/index.ts',
+		},
+		{
+			name: 'tokenizer',
+			org: 'cato-script',
+			path: './packages/tokenizer',
+			main: './src/index.ts',
+			dependencies: {
+				'@cato-script/lexer': '*'
+			},
 		}
 	]
 }

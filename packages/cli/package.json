@@ -5,7 +5,7 @@
 	"main": "./src/index.ts",
 	"exports": {
 		"require": "./build/dist.commonjs.cjs",
-		"import": "./build/dist.module.mjs"
+		"import": "./build/dist.esm.mjs"
 	},
 	"types": "./build/types/src/index.d.ts"
 }
