@@ -1,3 +1,3 @@
-import Lexer from '../packages/lexer';
+import Lexer from '@cato-script/lexer';
 
-const lexer = new Lexer();
+const lexer = new Lexer('');

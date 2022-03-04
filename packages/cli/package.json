@@ -4,8 +4,8 @@
 	"author": "EmeraldMike, XFaonAE",
 	"main": "./src/index.ts",
 	"exports": {
-		"require": "./dist/dist.commonjs.cjs",
-		"import": "./dist/dist.module.mjs"
+		"require": "./build/dist.commonjs.cjs",
+		"import": "./build/dist.module.mjs"
 	},
-	"types": "./dist/types/src/index.d.ts"
+	"types": "./build/types/src/index.d.ts"
 }
